@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="style.css" />
+<title>Sit Bit | Create an Account</title>
+</head>
+
+<body>
+<div id="container">
+		<div id="header">
+        	<h1>Sit<span class="off">Bit</span></h1>
+            <h2>Putting an End to Sedentary Lifestyles</h2>
+        </div>   
+        
+        <div id="menu">
+        </div>
+
+        <div id="content">
+        
+        <div id="content_top"></div>
+        <div id="content_main">
+        <table style="width:100%">
+            <tr>
+                <th> </th>
+                <th></th>
+                <th>Select to Export</th>
+            </tr>
+
+            <tr>
+                <td>User 1:</td>
+                <td> <img src="ViewData.png" alt="View Data" width="160" height="42"></td>
+                <td>
+                    <form>
+                        <input  type="checkbox" name="Check1" value="checkbox1">
+                    </form>
+                </td>
+            </tr>
+
+            <tr>
+                <td>User 2:</td>
+                <td> <img src="ViewData.png" alt="View Data" width="160" height="42"></td>
+                <td>
+                    <form>
+                            <input type="checkbox" name="Check2" value="checkbox2">
+                    </form>
+                </td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td></td>
+                <td><img src="Export.png" alt="Export" width="160" height="42"></td></td>
+
+            </tr>
+        
+        </table>
+        </div>
+        <div id="content_bottom"></div>
+        </div>
+
+</div>
+</body>
+</html>

@@ -1,76 +1,96 @@
 <!DOCTYPE html>
 <link rel="stylesheet" type="text/css" href="style.css" />
 <head>
-<title>Sit Bit | Average Data </title>
+  <title>Sit Bit | Average Data </title>
 </head>
 
 <body>
   <div id="container">
-	<style>
-	  th,td {
+    <style>
+      th,td {
 		  border: 1px solid #006;
-	  }
-	  table {
+      }
+      table {
 		  border-collapse: collapse;
-	  }
-	  td {
+      }
+      td {
 		  height: 90px;
+      }
+	  th {
+		  height: 30px;
 	  }
-	  </style>
-		<div id="header">
-        	<h1>Sit<span class="off">Bit</span></h1>
-            <h2>Putting an End to Sedentary Lifestyles</h2>
-        </div>   
-        
-        <div id="menu">
-        </div>
+      img {
+		  display:block;
+		  margin-left: auto;
+		  margin-right: auto;
+		  //width: 50%;
+      }
+    </style>
+	
+    <div id="header">
+      <h1>Sit<span class="off">Bit</span></h1>
+      <h2>Putting an End to Sedentary Lifestyles</h2>
+    </div>   
+    
+    <div id="menu">
+    </div>
+	
+    <div id="content">
+      
+      <h3> 
+        <form action="mainPage.html">
+          <button type = "submit" value="Home"> Home
+        </form> 
+        <form action="index.html">
+          <button type = "submit" value="Logout"> Logout
+        </form> 
+      </h3>
 
-        <div id="content">
-        
-        <h3> 
-                    <form action="mainPage.html">
-                        <button type = "submit" value="Home"> Home
-                    </form> 
-                    <form action="index.html">
-                        <button type = "submit" value="Logout"> Logout
-                    </form> 
-                 </h3>
+	  <br><br><br>
+      
+      <div id="content_top"></div>
+	  
+      <div id="content_main">
+		<big><big><strong><p style="text-align:center;fontSize=200">Average User Data</p></strong></big></big>
+		
+        <table style="width:100%">
+          <tr>
+            <th> </th>
+            <th>Day 1 </th>
+            <th>Day 2 </th>
+			<th>Day 3 </th>
+          </tr>
 
-                    <br><br><br>
-                    
-        <div id="content_top"></div>
-        <div id="content_main">
-          <table style="width:100%">
-            <tr>
-                <th> </th>
-                <th>Day 1 </th>
-                <th>Day 2 </th>
-				<th>Day 3 </th>
-            </tr>
-
-            <tr>
-                <td>Sedentary Activity</td>
-                <td> </td>
-                <td> </td>
-				<td> </td>
-            </tr>
-			<tr>
-                <td>Break Frequency</td>
-                <td> </td>
-                <td> </td>
-				<td> </td>
-			</tr>
-            <tr>
-			    <td>Break Duration</td>
-                <td> </td>
-                <td> </td>
-				<td> </td>
-            </tr>
-        
+          <tr>
+            <td>Sedentary Activity</td>
+            <td> </td>
+            <td> </td>
+			<td> </td>
+          </tr>
+		  
+		  <tr>
+            <td>Break Frequency</td>
+            <td> </td>
+            <td> </td>
+			<td> </td>
+		  </tr>
+		  
+          <tr>
+			<td>Break Duration</td>
+            <td> </td>
+            <td> </td>
+			<td> </td>
+          </tr>
+		  
         </table>
-        </div>
-        <div id="content_bottom"></div>
-        </div>
+		
+		<br>
+		<img src="Export.png" alt="Export" width="160" height="42">
+      </div>
+	  
+      <div id="content_bottom"></div>
+    </div>
+  </div>
 
 </div>
 </body>

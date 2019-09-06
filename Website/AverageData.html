@@ -8,17 +8,22 @@
   <div id="container">
     <style>
       th,td {
-	  border: 1px solid #006;
+		  border: 1px solid #006;
       }
       table {
-	  border-collapse: collapse;
+		  border-collapse: collapse;
       }
       td {
-	  height: 90px;
+		  height: 90px;
       }
+	  th {
+		  height: 30px;
+	  }
       img {
-	  margin-left: auto;
-	  margin-right: auto;
+		  display:block;
+		  margin-left: auto;
+		  margin-right: auto;
+		  //width: 50%;
       }
     </style>
     <div id="header">
@@ -39,18 +44,21 @@
           <button type = "submit" value="Logout"> Logout
         </form> 
       </h3>
+
+	  <br><br><br>
       
-      <br><br><br>
       
       <div id="content_top">
 
-	<big><big><strong><p style="text-align:center;fontSize=200"><br>Average User Data</p></strong></big></big>
+	
       </div>
+
+	  
       <div id="content_main">
-	<br><br><br>
-          <table style="width:100%">
-            <tr>
-                <th> </th>
+		<big><big><strong><p style="text-align:center;fontSize=200">Average User Data</p></strong></big></big>
+        <table style="width:100%">
+          <tr>
+            <th> </th>
                 <th>Day 1 </th>
                 <th>Day 2 </th>
 				<th>Day 3 </th>
@@ -74,12 +82,13 @@
                 <td> </td>
 				<td> </td>
             </tr>
-        
-        </table>
-        </div>
+          </table>
+		  <br>
+		  <img src="Export.png" alt="Export" width="160" height="42">
+      </div>
       <div id="content_bottom">
-	<br>
-	<center><img src="Export.png" alt="Export" width="160" height="42">
+		
+		
 	</div>
       </div>
         </div>

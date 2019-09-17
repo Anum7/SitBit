@@ -1,10 +1,3 @@
-/* A Free Design by Bryant Smith (bryantsmith.com) */
-
-@import url('https://fonts.googleapis.com/css?family=Lobster&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
-
-
-
 body {
 	margin: 0;
 	padding: 0;
@@ -75,8 +68,6 @@ text-align:right;
 color:#FFFFFF;
 }
 
-
-
 .off
 {
 color:#67A0F5;
@@ -99,9 +90,6 @@ clear:both;
 {
 	font-color: #FFFFFF;
 }
-
-
-
 
 #content
 {
@@ -163,8 +151,36 @@ color:#FFFFFF;
 	
 }
 
-
 html, body {
 text-align: center;
 }
 p {text-align: left;}
+
+
+/*Anum code*/
+.topnav {
+	overflow: hidden;
+	background-color: #333;
+}
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #65bcdb;
+  color: white;
+}
+
+.topnav-right {
+  float: right;
+}
+

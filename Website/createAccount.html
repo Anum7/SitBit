@@ -6,35 +6,111 @@
 
 
 <body>
-<div id="container">
-		<div id="header">
-        	<h1>Sit<span class="off">Bit</span></h1>
-            <h2>Putting an End to Sedentary Lifestyles</h2>
-        </div>   
-        
-        <div id="menu">
-        </div>
+  <div id="container">
+    <div id="header">
+      <h1>Sit<span class="off">Bit</span></h1>
+      h2>Putting an End to Sedentary Lifestyles</h2>
+    </div>   
+    <br>
+    <div class="topnav">
+      <div class="topnav-right">
+        <a href="login.html">Login</a>
+      </div>
+    </div>
+    <div id="content">
+      <div id="content_top"></div>
+      <div id="content_main">
+        Firstname:<input type="text" name="firstname" id="firstName_field"/>
+        <br><br>
 
-        <div id="content">
-        
-        <div id="content_top"></div>
-        <div id="content_main">
-            <form action="login.html">
-            Firstname:<input type="text" name="firstname"><br><br>
-            Lastname:<input type="text" name="lastname"><br><br>
-            Email:<input type="text" name="email"><br><br>
-            Registered Key:<input type="password" name="regkey"><br><br>
-            Username:<input type="text" name="username"><br><br>
-            Password:<input type="password" name="pass"><br><br>
-            Confirm Password:<input type="password" name="confirm"><br><br>
+        Lastname:<input type="text" name="lastname" id="lastName_field"/>
+        <br><br>
 
-            <button type = "submit" value="Create an Account"> Create Account
+        Email:<input type="text" name="email" id = "email_field">
+        <br><br>
 
-            </form>
-        </div>
-        <div id="content_bottom"></div>
-        </div>
+        Registered Key:<input type="password" name="regkey">
+        <br><br>
+
+        <!-- Username:<input type="text" name="username"><br><br> -->
+
+        Password:<input type="password" name="pass" id = "psw_field">
+        <br><br>
+
+        <!-- Confirm Password:<input type="password" name="confirm"><br><br> -->
+
+        <button type = "button" value="Create an Account" onclick="signUp();"> Create Account </button>
+
+      </div>
+      <div id="content_bottom"></div>
+    </div>
 
 </div>
+
+<!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+  <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-app.js"></script>
+
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-firestore.js"></script>
+
+ 
+
+<script>
+  var firebaseConfig = {
+    apiKey: "AIzaSyAWv9r-zZGtB1v1ZvP1mXlt-S-Hx_0DjPE",
+    authDomain: "striking-figure-236016.firebaseapp.com",
+    databaseURL: "https://striking-figure-236016.firebaseio.com",
+    projectId: "striking-figure-236016",
+    storageBucket: "striking-figure-236016.appspot.com",
+    messagingSenderId: "853063308846",
+    appID: "1:853063308846:web:246d6ed0eff2faec98b1bf",
+  };
+  
+  firebase.initializeApp(firebaseConfig);
+  function login() {
+    window.open('login.html', '_self');
+  }
+  
+  function signUp(){  
+    var firstNames= document.getElementById('firstName_field').value;
+    var lastNames= document.getElementById('lastName_field').value; 
+    var userEmail = document.getElementById("email_field").value;
+    var userPsw = document.getElementById("psw_field").value;
+
+    firebase.auth().createUserWithEmailAndPassword(userEmail, userPsw).catch(function(error) {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    window.alert("Error: " + errorMessage);
+    }).then(function(user) {
+      firebase.database().ref('Users/' +user['user'].uid).set({
+          firstName:firstNames,lastName:lastNames}).then(function(){
+          console.log('saved');
+      })
+    }); 
+  }
+
+  firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    // User is signed in.
+    var displayName = user.displayName;
+    var email = user.email;
+    var emailVerified = user.emailVerified;
+    var photoURL = user.photoURL;
+    var isAnonymous = user.isAnonymous;
+    var uid = user.uid;
+    var providerData = user.providerData;
+    window.location.href = "mainPage.html";
+    // ...
+  } else {
+    // User is signed out.
+    // ...
+  }
+});
+</script>
+
 </body>
 </html>

@@ -4,34 +4,92 @@
 <title>Sit Bit | Login </title>
 </head>
 
-<body>
-<div id="container">
-		<div id="header">
-        	<h1>Sit<span class="off">Bit</span></h1>
-            <h2>Putting an End to Sedentary Lifestyles</h2>
-        </div>   
+<body onload="sendToHomePage();">
+  <div id="container">
+        <div id="header">
+      <h1>Sit<span class="off">Bit</span></h1>
+      <h2>Putting an End to Sedentary Lifestyles</h2>
+    </div>   
+    <br> <br> <br>
+    <div id="content">
         
-        <div id="menu">
+      <div id="content_top"></div>
+      <div id="content_main">
+
+        <!-- Credentials fields -->
+        <div class="input-group">
+          <input type="email" class="form-control" placeholder="Email..." id = "email_field"/>
         </div>
 
-        <div id="content">
-        
-        <div id="content_top"></div>
-        <div id="content_main">
-            <form action="mainPage.html">
+        <div class="input-group">
+          <input type="password" class="form-control" placeholder="Password..." id = "psw_field"/>
+        </div>
+        <br>
+
+        <!-- Login Button -->
+        <button type = "button" value="Login" onclick="login()">Log In</button>
             
-            Username:<input type="text" name="username"><br><br>
-            Password:<input type="password" name="pass"><br><br>
-            <button type = "submit" value="Log In"> Log In
-        
-            </form>
-            <form action="createAccount.html">
-                <button type = "submit" value="Create an Account"> Create an Account
-            </form>
-        </div>
-        <div id="content_bottom"></div>
-        </div>
+        <!-- create Account Button -->
+        <cenetr> <button type = "button" value = "Create Account" onclick="signUp()">Create Account</button></cenetr>
+      </div>
+      <div id="content_bottom"></div>
+    </div>
+  </div>
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase.js"></script>
+  
+  <!-- Initialize firebase -->
+  <script>
+  var firebaseConfig = {
+    apiKey: "AIzaSyAWv9r-zZGtB1v1ZvP1mXlt-S-Hx_0DjPE",
+    authDomain: "striking-figure-236016.firebaseapp.com",
+    databaseURL: "https://striking-figure-236016.firebaseio.com",
+    projectId: "striking-figure-236016",
+    storageBucket: "striking-figure-236016.appspot.com",
+    messagingSenderId: "853063308846",
+    appID: "1:853063308846:web:246d6ed0eff2faec98b1bf",
+  };
+  firebase.initializeApp(firebaseConfig);
+</script>
 
-</div>
+  <script>
+    function login() {
+    var userEmail = document.getElementById("email_field").value;
+    var userPsw = document.getElementById("psw_field").value;
+    
+    firebase.auth().signInWithEmailAndPassword(userEmail, userPsw).catch(function(error) {
+        // Handling Error.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        if (error != null) {
+          window.alert("Error " + errorMessage);
+        }
+    }); 
+      sendToHomePage();
+    }
+
+    function sendToHomePage() {
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          // User is signed in.
+          var displayName = user.displayName;
+          var email = user.email;
+          var emailVerified = user.emailVerified;
+          var photoURL = user.photoURL;
+          var isAnonymous = user.isAnonymous;
+          var uid = user.uid;
+          var providerData = user.providerData;
+          location.href='mainPage.html';
+        } else {
+          // No user is signed in.
+        }
+      });
+    }
+
+    function signUp() {
+      window.open('createAccount.html', '_self');
+    }
+
+  </script>
 </body>
 </html>

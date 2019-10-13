@@ -60,8 +60,13 @@
 
   <script>
 
+    //disable buttons not in use
+
       // current user ID
     var idBox;
+
+    //need to fix
+    var lastTime = new Date().getTime();
 
       // create reference to firebase, pull current data and display
       function loadDatabase() {
@@ -71,30 +76,115 @@
         ref.on("value", function(snapshot) {
           
           snapshot.forEach(function(childSnapshot) {
-            var key = childSnapshot.key;
-            var childData = childSnapshot.val();
-            var id=childData.id;
-            console.log(childData );
-          });        
+            var user = childSnapshot.key;
+            var userData = childSnapshot.val();
+            var id=userData.id;
+            console.log(user);
+
+            //if database is empty, do something else...
+
+            //otherwise, do below functions
+
+            var sitting = userData.sitting;
+            console.log(sitting)
+            var sittingArr = [];
+            for (var key in sitting) {
+              var value = sitting[key];
+              var x = value.split(" ");
+              sittingArr.push(x);
+            }
+
+            console.log(sittingArr);
+
+            var standing = userData.standing;
+            console.log(standing)
+            var standingArr = [];
+            for (var key in standing) {
+              var value = standing[key];
+              var x = value.split(" ");
+              standingArr.push(x);
+            }
+
+        //everytime database loads, for each user, do calculations
+
+        // if standing is less (they forgot to push once, assuming only ONCE)
+        if (standingArr.length < sittingArr.length) {
+          standingArr.push(lastTime);
+        }
+
+        console.log(standingArr)
+
+        // in terms of seconds, for now
+
+        var sittingTime = 0
+        var standSec = 0;
+        var breakTime = 0;
+        var startTime = 0;
+        var endTime = 0;
+        var breakNum = sittingArr.length - 1;
+
+
+        for (var i = 0; i < sittingArr.length; i++) {
+            var sit = sittingArr[i][1];
+            var sitTime = sit.split(":")
+            var stand = standingArr[i][1];
+            var standTime = stand.split(":")
+
+            var sitSec = (parseInt(sitTime[0]) * 3600) + parseInt(sitTime[1] * 60) + parseInt(sitTime[2]); 
+
+            if (i > 0) {
+              breakTime += sitSec - standSec;
+            }
+
+            var standSec = (parseInt(standTime[0]) * 3600) + parseInt(standTime[1] * 60) + parseInt(standTime[2]);
+
+            if (i == 0) {
+              startTime = sitSec;
+            }
+
+            if (i == sittingArr.length - 1) {
+              endTime = standSec;
+            }
+
+            sittingTime += standSec - sitSec;
+        }
+
+        // total sedentary time
+        console.log(sittingTime);
+
+        //number of breaks
+        console.log(breakNum);
+
+        //average break length
+        var avgBreakLen = (breakTime/breakNum);
+        console.log(avgBreakLen);
+
+        //break frequency
+        var freq = (endTime - startTime)/(breakNum+1);
+        console.log(freq);
+
+/*
+        push into child with name current date
+
+ */
+
+ });        
         }, function (error) {
             console.log("Error: " + error.code);
         });
-
-      }
-
-
+      };
     // add current user info to firebase (sitting)
     function sitting() { 
 
       //get current time
       var time = new Date()
       var date = time.getFullYear()+'-'+(time.getMonth()+1)+'-'+time.getDate();
-      var currTime = time.getDate() + time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds();
+      var currTime = time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds();
 
       //access child and push new time
       var usersRef = ref.child(idBox);
       var currRef = usersRef.child("sitting");
-      currRef.push(date + currTime);
+      currRef.push(date + " " + currTime);
 
     };
 
@@ -104,12 +194,12 @@
       //get current time
       var time = new Date()
       var date = time.getFullYear()+'-'+(time.getMonth()+1)+'-'+time.getDate();
-      var currTime = time.getDate() + time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds();
+      var currTime = time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds();
 
       //access child and push new time
       var usersRef = ref.child(idBox);
       var currRef = usersRef.child("standing");
-      currRef.push(date + currTime);
+      currRef.push(date + " " + currTime);
 
     };
 

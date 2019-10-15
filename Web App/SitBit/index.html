@@ -65,8 +65,11 @@
       // current user ID
     var idBox;
 
-    //need to fix
-    var lastTime = new Date().getTime();
+    //get current timestamp (to add for shorter standing arrays - NEED TO FIX TO MAKE SURE THAT WE ARE ADDING AN AGREED UPON "LAST TIME" - 5:00 for example)
+    var time = new Date()
+    var date = time.getFullYear()+'-'+(time.getMonth()+1)+'-'+time.getDate();
+    var currTime = time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds();
+    var lastTime = (date + " " + currTime).split(" ");
 
       // create reference to firebase, pull current data and display
       function loadDatabase() {
@@ -86,7 +89,6 @@
             //otherwise, do below functions
 
             var sitting = userData.sitting;
-            console.log(sitting)
             var sittingArr = [];
             for (var key in sitting) {
               var value = sitting[key];
@@ -97,7 +99,6 @@
             console.log(sittingArr);
 
             var standing = userData.standing;
-            console.log(standing)
             var standingArr = [];
             for (var key in standing) {
               var value = standing[key];
@@ -108,8 +109,9 @@
         //everytime database loads, for each user, do calculations
 
         // if standing is less (they forgot to push once, assuming only ONCE)
-        if (standingArr.length < sittingArr.length) {
+        while (standingArr.length < sittingArr.length) {
           standingArr.push(lastTime);
+          // need to push a new time each time
         }
 
         console.log(standingArr)
@@ -163,16 +165,31 @@
         var freq = (endTime - startTime)/(breakNum+1);
         console.log(freq);
 
-/*
-        push into child with name current date
+        var dataArr = [];
+        dataArr.push(sittingTime);
+        dataArr.push(breakNum);
+        dataArr.push(avgBreakLen);
+        dataArr.push(freq);
 
- */
 
- });        
+        /*push into firebase
+
+        var usersRef = ref.child(user);
+        var currRef = usersRef.child("data");
+        currRef.push("hey");
+
+        above results in an infinite loop of "hey" being pushed
+
+        */
+
+        });
+
         }, function (error) {
             console.log("Error: " + error.code);
         });
-      };
+};
+
+
     // add current user info to firebase (sitting)
     function sitting() { 
 

@@ -76,6 +76,7 @@
 
         idBox = document.getElementById("idBox").value;
 
+
         ref.on("value", function(snapshot) {
           
           snapshot.forEach(function(childSnapshot) {
@@ -96,6 +97,7 @@
               sittingArr.push(x);
             }
 
+            console.log("sitting");
             console.log(sittingArr);
 
             var standing = userData.standing;
@@ -114,6 +116,7 @@
           // need to push a new time each time
         }
 
+        console.log("standing");
         console.log(standingArr)
 
         // in terms of seconds, for now
@@ -152,18 +155,18 @@
         }
 
         // total sedentary time
-        console.log(sittingTime);
+        console.log("sitting time: " + sittingTime);
 
         //number of breaks
-        console.log(breakNum);
+        console.log("break number: " + breakNum);
 
         //average break length
         var avgBreakLen = (breakTime/breakNum);
-        console.log(avgBreakLen);
+        console.log("break length: " + avgBreakLen);
 
         //break frequency
-        var freq = (endTime - startTime)/(breakNum+1);
-        console.log(freq);
+        var freq =  (endTime - startTime)/(breakNum+1);
+        console.log("break frequency: " + freq);
 
         var dataArr = [];
         dataArr.push(sittingTime);
@@ -172,15 +175,28 @@
         dataArr.push(freq);
 
 
-        /*push into firebase
+        //push into firebase
+       /*
+       var usersRef = ref.child(user);
+       var currRef = usersRef.child("data");
+       currRef.push(dataArr);
+*/
 
-        var usersRef = ref.child(user);
-        var currRef = usersRef.child("data");
-        currRef.push("hey");
 
-        above results in an infinite loop of "hey" being pushed
+/*
 
-        */
+        	var usersRef = ref.child(user + " final");
+        	var currRef = usersRef.child("Day");
+        	currRef.push("a");
+          */
+
+        	 //get the last item id and save it to next key
+      
+ 
+
+        //above results in an infinite loop of "hey" being pushed
+
+        
 
         });
 
@@ -214,6 +230,7 @@
       var currTime = time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds();
 
       //access child and push new time
+
       var usersRef = ref.child(idBox);
       var currRef = usersRef.child("standing");
       currRef.push(date + " " + currTime);

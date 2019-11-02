@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+   <head>
+    <style>
+        .grid-container {
+          display: grid;
+          grid-template-columns: auto auto;
+          grid-gap: 10px;
+          padding: 10px;
+        }
+        
+        .grid-container > div {
+          background-color: rgba(255, 255, 255, 0.8);
+          /* border: 1px solid black; */
+          text-align: center;
+          font-size: 30px;
+        }
+    </style>
+<<<<<<< HEAD
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-app.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-auth.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-firestore.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-database.js"></script>
+      <script>
+         //initializing firebase
+         var firebaseConfig = {
+           apiKey: "AIzaSyAWv9r-zZGtB1v1ZvP1mXlt-S-Hx_0DjPE",
+           authDomain: "striking-figure-236016.firebaseapp.com",
+           databaseURL: "https://striking-figure-236016.firebaseio.com",
+           projectId: "striking-figure-236016",
+           storageBucket: "striking-figure-236016.appspot.com",
+           messagingSenderId: "853063308846",
+           appID: "1:853063308846:web:246d6ed0eff2faec98b1bf",
+         };
+         
+         firebase.initializeApp(firebaseConfig);
+         var db = firebase.firestore();
+      </script>
+   </head>
+   <body>
+      <form>
+         <div class="form-group">
+            <label for="idBox"> ID </label>
+            <input type="text" class="form-control" id="idBox">
+         </div>
+      </form>
+      <br><br>
+      <button id="sitting" value="button text" onclick = "sitting()" type="button" class="btn btn-primary"> Sitting </button>
+      <button id="standing" value="button text" onclick = "standing()" type="button" class="btn btn-primary" disabled="true"> Standing </button>
+      <button type="button" class="btn btn-primary" onclick = "loadDatabase()"> End Session </button>
+      <script>
+         //disable buttons not in use
+         
+         // current user ID
+         var idBox;
+         
+         //get current timestamp (to add for shorter standing arrays - NEED TO FIX TO MAKE SURE THAT WE ARE ADDING AN AGREED UPON "LAST TIME" - 5:00 for example)
+         var time = new Date()
+         var date = time.getFullYear() + '-' + (time.getMonth() + 1) + '-' + time.getDate();
+         var currTime = time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds();
+         var lastTime = (date + " " + currTime).split(" ");
+         
+         // create reference to firebase, pull current data and display
+         function loadDatabase() {
+           db.collection("usersReport").get().then(function(querySnapshot) {
+             querySnapshot.forEach(function(doc) {
+               db.collection("users").doc(document.getElementById("idBox").value).collection(date).doc("sitting").get().then(function(sittingDoc) {
+                  db.collection("users").doc(document.getElementById("idBox").value).collection(date).doc("standing").get().then(function(standingDoc) {
+         
+                     console.log(sitting);
+                     console.log(standing);
+                     sitting = sittingDoc.data().data;
+                     standing = standingDoc.data().data;
+                     console.log("---");
+                     console.log(sitting);
+         
+                     var sittingArr = [];
+                     for (var key in sitting) {
+                         var value = sitting[key];
+                         console.log(value);
+                         var x = value.split(" ");
+                         sittingArr.push(x);
+                     }
+         
+                     console.log("sitting");
+                     console.log(sittingArr);
+         
+                     var standingArr = [];
+                     for (var key in standing) {
+                         var value = standing[key];
+                         var x = value.split(" ");
+                         standingArr.push(x);
+                     }
+         
+                     //everytime database loads, for each user, do calculations
+         
+                     // if standing is less (they forgot to push once, assuming only ONCE)
+                     while (standingArr.length < sittingArr.length) {
+                         standingArr.push(lastTime);
+                         // need to push a new time each time
+                     }
+         
+         
+                     var sittingTime = 0
+                     var standSec = 0;
+                     var breakTime = 0;
+                     var startTime = 0;
+                     var endTime = 0;
+                     var breakNum = sittingArr.length - 1;
+         
+         
+                     for (var i = 0; i < sittingArr.length; i++) {
+                         var sit = sittingArr[i][1];
+                         var sitTime = sit.split(":")
+                         var stand = standingArr[i][1];
+                         var standTime = stand.split(":")
+         
+                         var sitSec = (parseInt(sitTime[0]) * 3600) + parseInt(sitTime[1] * 60) + parseInt(sitTime[2]);
+         
+                         if (i > 0) {
+                             breakTime += sitSec - standSec;
+                         }
+         
+                         var standSec = (parseInt(standTime[0]) * 3600) + parseInt(standTime[1] * 60) + parseInt(standTime[2]);
+         
+                         if (i == 0) {
+                             startTime = sitSec;
+                         }
+         
+                         if (i == sittingArr.length - 1) {
+                             endTime = standSec;
+                         }
+         
+                         sittingTime += standSec - sitSec;
+                     }
+         
+                     // total sedentary time
+                     console.log("sitting time: " + sittingTime);
+         
+                     //number of breaks
+                     console.log("break number: " + breakNum);
+         
+                     //average break length
+                     var avgBreakLen = (breakTime / breakNum);
+                     console.log("break length: " + avgBreakLen);
+         
+                     //break frequency
+                     var freq = (endTime - startTime) / (breakNum + 1);
+                     console.log("break frequency: " + freq);
+         
+                     var dataArr = [];
+                     dataArr.push(sittingTime);
+                     dataArr.push(breakNum);
+                     dataArr.push(avgBreakLen);
+                     dataArr.push(freq);
+         
+                     console.log("FINAL: " + dataArr);
+                     db.collection("usersReport").doc(document.getElementById("idBox").value).collection("data").doc(date).set({
+                       data: dataArr
+                     });
+         
+                  });
+               });
+         
+             });
+           });
+           window.alert("We have recorded your today's sedentary time. You may now close the window");
+         };
+         
+         
+         // add current user info to firebase (sitting)
+         function sitting() {
+             document.getElementById("sitting").disabled = true;
+             document.getElementById("standing").disabled = false;
+             //get current time
+             var time = new Date()
+             var date = time.getFullYear() + '-' + (time.getMonth() + 1) + '-' + time.getDate();
+             var currTime = time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds();
+             var currDate = date + " " + currTime;
+         
+             // db.collection("users").add(data);
+         
+             // //access child and push new time
+             // var usersRef = ref.child(idBox);
+             // var currRef = usersRef.child("sitting");
+             // currRef.push(date + " " + currTime);
+         
+             db.collection("users").doc(document.getElementById("idBox").value).get().then(function(data) {
+               if (data.exists) {
+                 // See if the sitting and standing documents for curr date exist
+                  db.collection("users").doc(document.getElementById("idBox").value).collection(date).doc("sitting").get().then(function(data) {
+                                   console.log("!0");
+         
+                   if (data.exists) {
+                     console.log("!1");
+                     db.collection("users")
+                       .doc(document.getElementById("idBox").value)
+                       .collection(date)
+                       .doc("sitting")
+                       .update({
+                         data: firebase.firestore.FieldValue.arrayUnion(date + " " + currTime)
+                       });
+                   } else {
+                     //creating a doc under the date collection
+                     db.collection("users").doc(document.getElementById("idBox").value).collection(date).doc("sitting").set({
+                       data: [currDate]
+                     });
+                     db.collection("users").doc(document.getElementById("idBox").value).collection(date).doc("standing").set({
+                       data: []
+                     });
+                   }
+                  });
+         
+               } else {
+                 var name = "test";
+                 db.collection("users").doc(document.getElementById("idBox").value).set({
+                   name: "test"
+                 });
+                 db.collection("usersReport").doc(document.getElementById("idBox").value).set({
+                   name: "test"
+                 });
+                 sitting();
+               }
+             });
+         };
+         
+         // add current user info to firebase (standing)
+         // add current user info to firebase (sitting)
+         function standing() {
+         
+             document.getElementById("standing").disabled = true;
+             document.getElementById("sitting").disabled = false;
+             //get current time
+             var time = new Date()
+             var date = time.getFullYear() + '-' + (time.getMonth() + 1) + '-' + time.getDate();
+             var currTime = time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds();
+             var currDate = date + " " + currTime;
+         
+             // db.collection("users").add(data);
+         
+             // //access child and push new time
+             // var usersRef = ref.child(idBox);
+             // var currRef = usersRef.child("sitting");
+             // currRef.push(date + " " + currTime);
+         
+             db.collection("users").doc(document.getElementById("idBox").value).get().then(function(data) {
+               if (data.exists) {
+                 // See if the sitting and standing documents for curr date exist
+                  db.collection("users").doc(document.getElementById("idBox").value).collection(date).doc("sitting").get().then(function(data) {
+                                   console.log("!0");
+         
+                   if (data.exists) {
+                     console.log("!1");
+                     db.collection("users")
+                       .doc(document.getElementById("idBox").value)
+                       .collection(date)
+                       .doc("standing")
+                       .update({
+                         data: firebase.firestore.FieldValue.arrayUnion(date + " " + currTime)
+                       });
+                   } else {
+                     //creating a doc under the date collection
+                     db.collection("users").doc(document.getElementById("idBox").value).collection(date).doc("sitting").set({
+                       data: []
+                     });
+                     db.collection("users").doc(document.getElementById("idBox").value).collection(date).doc("standing").set({
+                       data: [currDate]
+                     });
+                   }
+                  });
+         
+               } else {
+                 var name = "test";
+                 db.collection("users").doc(document.getElementById("idBox").value).set({
+                   name: "test"
+                 });
+                 db.collection("usersReport").doc(document.getElementById("idBox").value).set({
+                   name: "test"
+                 });
+                 sitting();
+               }
+             });
+         };
+      </script>
+   </body>
+=======
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<!-- <link rel="stylesheet" href="Index.css"> -->
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-database.js"></script>
+
+ 
+<script>
+
+  //initializing firebase
+  var firebaseConfig = {
+    apiKey: "AIzaSyAWv9r-zZGtB1v1ZvP1mXlt-S-Hx_0DjPE",
+    authDomain: "striking-figure-236016.firebaseapp.com",
+    databaseURL: "https://striking-figure-236016.firebaseio.com",
+    projectId: "striking-figure-236016",
+    storageBucket: "striking-figure-236016.appspot.com",
+    messagingSenderId: "853063308846",
+    appID: "1:853063308846:web:246d6ed0eff2faec98b1bf",
+  };
+  
+  firebase.initializeApp(firebaseConfig);
+  var ref = firebase.database().ref();
+
+</script>
+
+    
+</head>
+
+  <body>
+  
+  <style>
+  .button {
+    background-repeat:no-repeat;
+  }
+  </style>
+
+   <form>
+    <div class="form-group">
+    <div style="text-align: center; border: 1px solid">
+    <label for="idBox"> Employee ID </label>
+    <input type="textarea" class="form-control" id="idBox">
+    </div>
+
+   <button type="button" class="btn btn-primary" onclick = "loadDatabase()"> Submit </button>
+  </form>
+  
+    
+
+  <script>
+
+      // current user ID
+    var idBox;
+
+      // create reference to firebase, pull current data and display
+      function loadDatabase() {
+
+        idBox = document.getElementById("idBox").value;
+
+        ref.on("value", function(snapshot) {
+          
+          snapshot.forEach(function(childSnapshot) {
+            var key = childSnapshot.key;
+            var childData = childSnapshot.val();
+            var id=childData.id;
+            console.log(childData );
+          });        
+        }, function (error) {
+            console.log("Error: " + error.code);
+        });
+
+        window.location.href = "./record.html";
+
+      }
+
+
+    // add current user info to firebase (sitting)
+    function sitting() { 
+
+      //get current time
+      var time = new Date()
+      var date = time.getFullYear()+'-'+(time.getMonth()+1)+'-'+time.getDate();
+      var currTime = time.getDate() + time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds();
+
+      //access child and push new time
+      var usersRef = ref.child(idBox);
+      var currRef = usersRef.child("sitting");
+      currRef.push(date + currTime);
+
+    };
+
+    // add current user info to firebase (standing)
+    function standing() { 
+
+      //get current time
+      var time = new Date()
+      var date = time.getFullYear()+'-'+(time.getMonth()+1)+'-'+time.getDate();
+      var currTime = time.getDate() + time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds();
+
+      //access child and push new time
+      var usersRef = ref.child(idBox);
+      var currRef = usersRef.child("standing");
+      currRef.push(date + currTime);
+
+    };
+
+  </script>
+
+  </body>
+>>>>>>> 1ea221a030b80dfaec2cb7ad91bb87b8669fde0a
+</html>

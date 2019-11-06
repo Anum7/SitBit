@@ -53,14 +53,16 @@
    <body>
       <form>
          <div class="form-group">
-            <label for="idBox"> ID </label>
+            <label for="idBox"> Enter Employee ID </label>
             <input type="text" class="form-control" id="idBox">
          </div>
       </form>
       <br><br>
-      <button id="sitting" value="button text" onclick = "sitting()" type="button" class="btn btn-primary"> Sitting </button>
-      <button id="standing" value="button text" onclick = "standing()" type="button" class="btn btn-primary" disabled="true"> Standing </button>
-      <button type="button" class="btn btn-primary" onclick = "loadDatabase()"> End Session </button>
+      <button id="sitting" value="button text" onclick = "sitting()" type="button" class="btn btn-primary" style="width: 300px; height: 150px; background-color:rgb(231, 53, 53);color:white; border-color:rgb(231, 53, 53)"> Sitting </button>
+      <br><br>
+      <p><button id="standing" value="button text" onclick = "standing()" type="button" class="btn btn-primary" style="width: 300px; height: 150px; background-color:rgb(231, 53, 53);color:white; border-color:rgb(231, 53, 53)" disabled="true"> Standing </button></p>
+      <br>
+      <button type="button" style="width: 250px; height: 100px; background-color:rgb(146, 48, 185);color:white; border-color:rgb(146, 48, 185)" class="btn btn-primary" onclick = "loadDatabase()"> End Session </button>
       <script>
          //disable buttons not in use
          

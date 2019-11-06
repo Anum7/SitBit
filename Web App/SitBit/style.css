@@ -1,6 +1,5 @@
 body {
   background: url('radiology-xray.jpg');
-  background-position: center;
   background-size: cover;
 }
 .login-box{
@@ -74,9 +73,9 @@ body {
   background-color:rgb(231, 53, 53);
   color: white;
   border-color:rgb(231, 53, 53);
-  left: 64%;
-  position: relative;
   border-radius: 10px;
+  font-weight: bold;
+  font-size: 30px;
 }
 .end-session-button {
   width: 250px;
@@ -84,7 +83,20 @@ body {
   background-color:rgb(146, 48, 185);
   color:white;
   border-color:rgb(146, 48, 185);
-  position: relative;
-  left: 64%;
   border-radius: 10px;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.record-box{
+  width: 344px;
+  height: 444px;
+  background: rgba(255, 255, 255, .5);
+  color: #000000;
+  top: 50%;
+  left: 74%;
+  position: absolute;
+  transform: translate(-50%,-50%);
+  box-sizing: border-box;
+  padding: 40px 50px;
 }

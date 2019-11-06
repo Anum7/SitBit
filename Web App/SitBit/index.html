@@ -43,12 +43,13 @@
       </div>
 
       <br><br>
-
-      <button id="sitting" value="button text" onclick = "sitting()" type="button1" class="record-buttons"> Sitting </button>
-      <br><br>
-      <p><button id="standing" value="button text" onclick = "standing()" type="button2" class="record-buttons" disabled="true"> Standing </button></p>
-      <br>
-      <button type="button" class="end-session-button" onclick = "loadDatabase()"> End Session </button>
+      <div class="record-box">
+        <button id="sitting" value="button text" onclick = "sitting()" type="button1" class="record-buttons"> Sitting </button>
+        <br><br>
+        <button id="standing" value="button text" onclick = "standing()" type="button2" class="record-buttons" disabled="true"> Standing </button>
+        <br><br>
+        <button type="button" class="end-session-button" onclick = "loadDatabase()"> End Session </button>
+      </div>
 
       <script>
          //disable buttons not in use

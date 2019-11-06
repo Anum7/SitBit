@@ -31,21 +31,25 @@
    </head>
    <body>
       <div class="login-box">
+
         <img src="avatar.png" class="avatar">
-      <form>
-        <label for="idBox"> Employee ID </label>
-        <input type="text" placeholder="Enter Employee ID" id="idBox">
-      </form>
+        <form>
+          <label for="idBox"> Employee ID </label>
+          <input type="text" placeholder="Enter Employee ID" id="idBox">
+          <br><br>
+          <input type="submit" class="submit-button" onclick = "endSession()">
+        </form>
+
       </div>
 
       <br><br>
 
-      <button id="sitting" value="button text" onclick = "sitting()" type="button" class="record-buttons"> Sitting </button>
+      <button id="sitting" value="button text" onclick = "sitting()" type="button1" class="record-buttons"> Sitting </button>
       <br><br>
-      <p><button id="standing" value="button text" onclick = "standing()" type="button" class="record-buttons" disabled="true"> Standing </button></p>
+      <p><button id="standing" value="button text" onclick = "standing()" type="button2" class="record-buttons" disabled="true"> Standing </button></p>
       <br>
-      <button type="button" class="submit-button" onclick = "loadDatabase()"> End Session </button>
-      
+      <button type="button" class="end-session-button" onclick = "loadDatabase()"> End Session </button>
+
       <script>
          //disable buttons not in use
          
@@ -58,6 +62,11 @@
          var currTime = time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds();
          var lastTime = (date + " " + currTime).split(" ");
          
+         // End Session
+         function endSession() {
+          window.alert("You may now begin recording your data.");
+         }
+
          // create reference to firebase, pull current data and display
          function loadDatabase() {
            db.collection("usersReport").get().then(function(querySnapshot) {
@@ -162,7 +171,7 @@
          
              });
            });
-           window.alert("We have recorded your today's sedentary time. You may now close the window");
+           window.alert("We have recorded your sedentary time for today. You may now close the window.");
          };
          
          

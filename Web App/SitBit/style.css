@@ -76,6 +76,7 @@ body {
   border-color:rgb(231, 53, 53);
   left: 64%;
   position: relative;
+  border-radius: 10px;
 }
 .end-session-button {
   width: 250px;
@@ -85,4 +86,5 @@ body {
   border-color:rgb(146, 48, 185);
   position: relative;
   left: 64%;
+  border-radius: 10px;
 }

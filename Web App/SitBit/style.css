@@ -8,7 +8,7 @@ body {
     background: rgba(255, 255, 255, .5);
     color: #000000;
     top: 50%;
-    left: 44%;
+    left: 33%;
     position: absolute;
     transform: translate(-50%,-50%);
     box-sizing: border-box;
@@ -94,7 +94,7 @@ body {
   background: rgba(255, 255, 255, .5);
   color: #000000;
   top: 50%;
-  left: 74%;
+  left: 66%;
   position: absolute;
   transform: translate(-50%,-50%);
   box-sizing: border-box;

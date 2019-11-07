@@ -71,8 +71,8 @@
             window.alert("Please enter a valid Employee ID.");
           } else {
             window.alert("You may now begin recording your data.");
+            document.getElementById("idBox").disabled = true;
             document.getElementById("sitting").disabled = false;
-            document.getElementById("standing").disabled = false;
             document.getElementById("endSession").disabled = false;
           }
          }
@@ -188,7 +188,9 @@
          // add current user info to firebase (sitting)
          function sitting() {
              document.getElementById("sitting").disabled = true;
+             document.getElementById("sitting").style.border = "thick solid #e35954"; //red
              document.getElementById("standing").disabled = false;
+             document.getElementById("standing").style.border = "10px solid #1c8adb"; //original blue
              //get current time
              var time = new Date()
              var date = time.getFullYear() + '-' + (time.getMonth() + 1) + '-' + time.getDate();
@@ -246,7 +248,9 @@
          function standing() {
          
              document.getElementById("standing").disabled = true;
+             document.getElementById("standing").style.border = "thick solid #e35954"; //red
              document.getElementById("sitting").disabled = false;
+             document.getElementById("sitting").style.border = "10px solid #1c8adb"; //original blue
              //get current time
              var time = new Date()
              var date = time.getFullYear() + '-' + (time.getMonth() + 1) + '-' + time.getDate();

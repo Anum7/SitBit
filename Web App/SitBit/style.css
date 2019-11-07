@@ -100,3 +100,27 @@ body {
   box-sizing: border-box;
   padding: 40px 50px;
 }
+.header {
+height:85px;
+width:960px;  
+}
+
+.header h1 {
+  position:absolute;
+  text-align:center;
+  color:#FFFFFF;
+  font-size:43px;
+  color:#FFF; 
+  right:30px;
+  top:18px;
+
+  font-family: 'Helvetica Neue', sans-serif; 
+  font-size: 80px; 
+  font-weight: bold; 
+  letter-spacing: -1px; 
+  line-height: 1; 
+}
+
+.off {
+color:#67A0F5;
+}

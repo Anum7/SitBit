@@ -70,9 +70,9 @@ body {
 .record-buttons {
   width: 240px;
   height: 104px;
-  background-color:rgb(231, 53, 53);
+  background-color: #1c8adb;
   color: white;
-  border-color:rgb(231, 53, 53);
+  border-color: #1c8adb;
   border-radius: 10px;
   font-weight: bold;
   font-size: 30px;
@@ -88,7 +88,7 @@ body {
   font-size: 30px;
 }
 
-.record-box{
+.record-box {
   width: 344px;
   height: 444px;
   background: rgba(255, 255, 255, .5);

@@ -21,7 +21,8 @@
             <br>
             <div id="content_top"></div>
             <div id="content_main">
-                <table style="width:100%">
+	      <button onclick="exportFunction()"><img src="Export.png"/></button>
+              <table style="width:100%">
                     <form id="add-users-form"></form>
                     <ul id="users-list"></ul> 
                 </table>
@@ -33,7 +34,7 @@
     <!-- Add Firebase products that you want to use -->
     <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-firestore.js"></script>
-  
+
     <script>
         var firebaseConfig = {
             apiKey: "AIzaSyAWv9r-zZGtB1v1ZvP1mXlt-S-Hx_0DjPE",
@@ -83,5 +84,39 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <script src="xlsx.js"></script>
+    <script src="FileSaver.js"></script>
+    <script src="tableexport.js"></script>
+
+    <script>
+      function exportFunction() {
+	  TableExport(document.getElementById('tblData'));
+      }
+    </script>
+	    
+    
+    <table id="tblData">
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Country</th>
+      </tr>
+      <tr>
+        <td>John Doe</td>
+        <td>john@gmail.com</td>
+        <td>USA</td>
+      </tr>
+      <tr>
+        <td>Michael Addison</td>
+        <td>michael@gmail.com</td>
+        <td>UK</td>
+      </tr>
+      <tr>
+        <td>Sam Farmer</td>
+        <td>sam@gmail.com</td>
+        <td>France</td>
+      </tr>
+    </table>
 </body>
 </html>

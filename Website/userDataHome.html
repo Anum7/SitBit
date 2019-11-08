@@ -21,7 +21,7 @@
             <br>
             <div id="content_top"></div>
             <div id="content_main">
-	      <button onclick="exportFunction()"><img src="Export.png"/></button>
+	      <img src="Export.png" onclick="exportFunction('tblData','data_output')" style="cursor:pointer"></img>
               <table style="width:100%">
                     <form id="add-users-form"></form>
                     <ul id="users-list"></ul> 
@@ -88,13 +88,7 @@
     <script src="xlsx.js"></script>
     <script src="FileSaver.js"></script>
     <script src="tableexport.js"></script>
-
-    <script>
-      function exportFunction() {
-	  TableExport(document.getElementById('tblData'));
-      }
-    </script>
-	    
+    <script src="csvExport.js"></script>	    
     
     <table id="tblData">
       <tr>

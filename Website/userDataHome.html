@@ -28,6 +28,11 @@
             </div>
             <div id="content_bottom"></div>
         </div>
+
+
+        <button id="viewData" type="button" onclick = "viewData()"> View Data </button>
+
+
         <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-app.js"></script>
 
     <!-- Add Firebase products that you want to use -->
@@ -45,6 +50,9 @@
             appID: "1:853063308846:web:246d6ed0eff2faec98b1bf",
         };
         firebase.initializeApp(firebaseConfig);
+        var db = firebase.firestore();
+
+
     </script>
 
     <script>
@@ -77,6 +85,36 @@
             });
             sendToHomePage();
         }
+
+         function viewData() {
+            db.collection("usersReport").get().then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                    console.log(doc.id);
+                    data = doc.data();
+                    console.log(data);
+                    /*
+                    if (data.propertyIsEnumerable()) {
+                        for (currData in data) {
+                            console.log(currData[0]);
+                            console.log("Sitting Time: " + currData[1]);
+                            console.log("Break Number: " + currData[2]);
+                            console.log("Break Length: " + currData[3]);
+                            console.log("Break Frequency: " + currData[4]);
+                        }
+                    } else {
+                        console.log(data);
+                        console.log(data[0]);
+                        console.log(data[1]);
+                        console.log(data[2]);
+                        console.log(data[3]);
+                        console.log(data[3]);
+                    }
+                    */
+                });
+            })
+        }
+
+
     </script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

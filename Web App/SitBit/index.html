@@ -173,8 +173,8 @@
                      dataArr.push(freq);
          
                      console.log("FINAL: " + dataArr);
-                     db.collection("usersReport").doc(document.getElementById("idBox").value).collection("data").doc(date).set({
-                       data: dataArr
+                     db.collection("usersReport").doc(document.getElementById("idBox").value).set({
+                       dataArr
                      });
          
                   });
@@ -291,16 +291,7 @@
                    }
                   });
          
-               } else {
-                 var name = "test";
-                 db.collection("users").doc(document.getElementById("idBox").value).set({
-                   name: "test"
-                 });
-                 db.collection("usersReport").doc(document.getElementById("idBox").value).set({
-                   name: "test"
-                 });
-                 sitting();
-               }
+               } 
              });
          };
       </script>

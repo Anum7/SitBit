@@ -47,7 +47,7 @@
         </div>
 
 
-        <button id="viewData" type="button" onclick = "viewData(1)"> View Data </button>
+        <button id="viewData" type="button" onclick = "viewData()"> View Data </button>
 	
         <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-app.js"></script>
 
@@ -57,7 +57,7 @@
 
     <script src="FileSaver.js"></script>
     <script src="tableexport.js"></script>
-    <script src="csvExport.js"></script>	    
+    <script src="csvExport.js"></script>
   
     <script>
         var firebaseConfig = {
@@ -106,7 +106,7 @@
             sendToHomePage();
         }
 
-      function viewData(visible) {
+      function viewData() {
 	  var html = "";
 	  html += "<table id='dataTable' style='margin-bottom:1cm'>";
 	  html += "<tr>";

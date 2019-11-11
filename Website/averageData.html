@@ -4,17 +4,20 @@
 <title>Sit Bit | Average Data </title>
 </head>
 
-<body>
+<body onload="pullData('tbl')">
     <div id="container">
   <style>
       th,td {
-       border: 1px solid #006;
+	  border: 1px solid #006;
+	  text-align:center;
+	  text-overflow:hidden;
       }
       table {
-       border-collapse: collapse;
+	  border-collapse: collapse;
+	  text-align:center;
       }
       td {
-       height: 90px;
+	  height: 90px;
       }
         </style>
         <div id="header">
@@ -33,34 +36,7 @@
                 <br>         
                 <div id="content_top"></div>
                 <div id="content_main">
-                    <table style="width:100%">
-                        <tr>
-                            <th> </th>
-                            <th>Day 1 </th>
-                            <th>Day 2 </th>
-                    <th>Day 3 </th>
-                        </tr>
-
-                        <tr>
-                            <td>Sedentary Activity</td>
-                            <td> </td>
-                            <td> </td>
-                    <td> </td>
-                        </tr>
-                  <tr>
-                            <td>Break Frequency</td>
-                            <td> </td>
-                            <td> </td>
-                    <td> </td>
-                  </tr>
-                        <tr>
-                      <td>Break Duration</td>
-                            <td> </td>
-                            <td> </td>
-                    <td> </td>
-                        </tr>
-        
-                    </table>
+		  <div id="tbl" style="text-align:center"></div>
                 </div>
                 <div id="content_bottom"></div>
             </div>
@@ -72,6 +48,10 @@
     <!-- Add Firebase products that you want to use -->
     <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-firestore.js"></script>
+
+    <script src="FileSaver.js"></script>
+    <script src="tableexport.js"></script>
+    <script src="csvExport.js"></script>	    
   
     <script>
         var firebaseConfig = {
@@ -83,7 +63,8 @@
             messagingSenderId: "853063308846",
             appID: "1:853063308846:web:246d6ed0eff2faec98b1bf",
         };
-        firebase.initializeApp(firebaseConfig);
+      firebase.initializeApp(firebaseConfig);
+      var db = firebase.firestore();
     </script>
 
     <script>

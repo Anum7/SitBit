@@ -167,15 +167,14 @@
                      console.log("break frequency: " + freq);
          
                      var dataArr = [];
-					 dataArr.push(date);
                      dataArr.push(sittingTime);
                      dataArr.push(breakNum);
                      dataArr.push(avgBreakLen);
                      dataArr.push(freq);
          
                      console.log("FINAL: " + dataArr);
-                     db.collection("usersReport").doc(document.getElementById("idBox").value).set({
-                       dataArr
+                     db.collection("usersReport").doc(document.getElementById("idBox").value).update({
+                        [date]: dataArr
                      });
          
                   });

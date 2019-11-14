@@ -112,35 +112,25 @@ function createAvgDataTable(collec, tableId) {
     document.getElementById(tableId).innerHTML = html;
 }
 
-function readUserCookie() {
-    var decodedCookie = decodeURIComponent(document.cookie);
-    return decodedCookie.substring(5);
-}
-
-function pullUserData(tableId) {
+function pullUserData(user, tableId) {
     var dataList;
     var promises = [];
     db.collection("usersReport").get().then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
 	    promises.push(db.collection("usersReport").doc(doc.id).get());
 
-	    if(doc.id === readUserCookie()) {
+	    if(doc.id.toString() === user) {
 		dataList = doc.data();
-	    }
-	    
-	    if(typeof data !== 'undefined') {
-		
 	    }
 	});
 
 	Promise.all(promises).then(promises=> {
-	    createUserDataTable(dataList, tableId);
+	    createUserDataTable(user, dataList, tableId);
 	})
     })
 }
 
-function createUserDataTable(collec, tableId) {
-    console.log(tableId);
+function createUserDataTable(user, collec, tableId) {
     var currDate = new Date("11/10/2019");
     var todayDate = new Date();
 
@@ -157,7 +147,8 @@ function createUserDataTable(collec, tableId) {
     while(true) {
 	var currDateStr = currDate.getFullYear() + "-" + (currDate.getMonth() + 1) + "-" + currDate.getDate();
 
-	if(typeof collec[currDateStr] !== 'undefined') {
+	//if(typeof collec[currDateStr] !== 'undefined') {
+	if(currDateStr in collec) {
 	    var entry = collec[currDateStr];
 	    html += "<tr>";
 	    html += "<td>"+currDateStr+"</td>";
@@ -177,7 +168,7 @@ function createUserDataTable(collec, tableId) {
     }
 
     html += "</table>";
-    html += "<img src='Export.png' onclick=\"exportFunction('dataTable', 'user_" + readUserCookie() + "_data')\" style='cursor:pointer'></img>";
+    html += "<img src='Export.png' onclick=\"exportFunction('dataTable', 'user_" + user + "_data')\" style='cursor:pointer'></img>";
 
     document.getElementById(tableId).innerHTML = html;
 }

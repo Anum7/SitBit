@@ -8,18 +8,13 @@ function getUserButtons(containerId) {
 	    data = doc.data();
 
 	    if(typeof data !== 'undefined') {
-		html += "<button onclick='goToUserDataScreen(" + doc.id + ")'> User " + doc.id + "</button>";
+		html += "<button onclick='pullUserData(\"" + doc.id.toString() + "\", \"tbl\")'> User " + doc.id + "</button>";
 	    }
 	});
 
 	Promise.all(promises).then(promises=> {
+	    console.log(html);
 	    document.getElementById(containerId).innerHTML = html;
 	})
     })
-}
-
-function goToUserDataScreen(user) {
-    console.log(user);
-    document.cookie = "user = " + user;
-    window.location.href = "userData.html";
 }

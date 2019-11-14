@@ -53,10 +53,10 @@ function createAvgDataTable(collec, tableId) {
     html += "<table id='dataTable' style='margin-bottom:1cm'>";
     html += "<tr>";
     html += "<th width='28%'>Date</th>";
-    html += "<th width='18%'>Average Sitting Time</th>";
-    html += "<th width='18%'>Average Break Number</th>";
-    html += "<th width='18%'>Average Break Length</th>";
-    html += "<th width='18%'>Average Break Frequency</th>";
+    html += "<th width='18%'>Average Sitting Time (minutes)</th>";
+    html += "<th width='18%'>Average Number of Breaks</th>";
+    html += "<th width='18%'>Average Break Length (minutes)</th>";
+    html += "<th width='18%'>Average Time Between Breaks (minutes)</th>";
     html += "</tr>";
     
     while(true) {
@@ -138,10 +138,10 @@ function createUserDataTable(user, collec, tableId) {
     html += "<table id='dataTable' style='margin-bottom:1cm; margin-top:1cm'>";
     html += "<tr>";
     html += "<th width='28%'>Date</th>";
-    html += "<th width='18%'>Average Sitting Time</th>";
-    html += "<th width='18%'>Average Break Number</th>";
-    html += "<th width='18%'>Average Break Length</th>";
-    html += "<th width='18%'>Average Break Frequency</th>";
+    html += "<th width='18%'>Sitting Time (minutes)</th>";
+    html += "<th width='18%'>Number of Breaks</th>";
+    html += "<th width='18%'>Break Length (minutes)</th>";
+    html += "<th width='18%'>Time Between Breaks (minutes)</th>";
     html += "</tr>";
     
     while(true) {

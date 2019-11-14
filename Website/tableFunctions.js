@@ -135,7 +135,7 @@ function createUserDataTable(user, collec, tableId) {
     var todayDate = new Date();
 
     var html = "";
-    html += "<table id='dataTable' style='margin-bottom:1cm'>";
+    html += "<table id='dataTable' style='margin-bottom:1cm; margin-top:1cm'>";
     html += "<tr>";
     html += "<th width='28%'>Date</th>";
     html += "<th width='18%'>Average Sitting Time</th>";

@@ -3,18 +3,17 @@
 var idBox;
 
 //get current timestamp (to add for shorter standing arrays - NEED TO FIX TO MAKE SURE THAT WE ARE ADDING AN AGREED UPON "LAST TIME" - 5:00 for example)
+
 var time = new Date()
 var date = time.getFullYear() + '-' + (time.getMonth() + 1) + '-' + time.getDate();
-var currTime = time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds();
-var lastTime = (date + " " + currTime).split(" ");
 
 // End Session
 function startSession() {
     if (document.getElementById("idBox").value == "") {
         window.alert("Please enter a valid Employee ID.");
     } else {
-        window.alert("You may now begin recording your data.");
         document.getElementById("idBox").disabled = true;
+        window.alert("You may now begin recording your data.");
         document.getElementById("sitting").disabled = false;
         document.getElementById("endSession").disabled = false;
     }
@@ -27,23 +26,15 @@ function loadDatabase() {
             db.collection("users").doc(document.getElementById("idBox").value).collection(date).doc("sitting").get().then(function(sittingDoc) {
                 db.collection("users").doc(document.getElementById("idBox").value).collection(date).doc("standing").get().then(function(standingDoc) {
 
-                    console.log(sitting);
-                    console.log(standing);
                     sitting = sittingDoc.data().data;
                     standing = standingDoc.data().data;
-                    console.log("---");
-                    console.log(sitting);
-
+                    
                     var sittingArr = [];
                     for (var key in sitting) {
                         var value = sitting[key];
-                        console.log(value);
                         var x = value.split(" ");
                         sittingArr.push(x);
                     }
-
-                    console.log("sitting");
-                    console.log(sittingArr);
 
                     var standingArr = [];
                     for (var key in standing) {
@@ -54,11 +45,21 @@ function loadDatabase() {
 
                     //everytime database loads, for each user, do calculations
 
-                    // if standing is less (they forgot to push once, assuming only ONCE)
+                    // if standing is less (they forgot to push standing before they ended)
+                    
+                    var time = new Date();
+                    var currTime = time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds();
+                    var lastTime = (date + " " + currTime).split(" ");
+
                     while (standingArr.length < sittingArr.length) {
                         standingArr.push(lastTime);
                         // need to push a new time each time
                     }
+
+                    console.log("sitting");
+                    console.log(sittingArr);
+                    console.log("standing");
+                    console.log(standingArr);
 
 
                     var sittingTime = 0
@@ -95,6 +96,7 @@ function loadDatabase() {
                     }
 
                     // total sedentary time
+                    sittingTime /= 60.0;
                     console.log("sitting time: " + sittingTime);
 
                     //number of breaks
@@ -102,10 +104,12 @@ function loadDatabase() {
 
                     //average break length
                     var avgBreakLen = (breakTime / breakNum);
+                    avgBreakLen /= 60.0;
                     console.log("break length: " + avgBreakLen);
 
                     //break frequency
                     var freq = (endTime - startTime) / (breakNum + 1);
+                    freq /= 60.0;
                     console.log("break frequency: " + freq);
 
                     var dataArr = [];
@@ -140,15 +144,14 @@ function sitting() {
     var currTime = time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds();
     var currDate = date + " " + currTime;
 
+    console.log(currTime);
 
     db.collection("users").doc(document.getElementById("idBox").value).get().then(function(data) {
         if (data.exists) {
             // See if the sitting and standing documents for curr date exist
             db.collection("users").doc(document.getElementById("idBox").value).collection(date).doc("sitting").get().then(function(data) {
-                console.log("!0");
 
                 if (data.exists) {
-                    console.log("!1");
                     db.collection("users")
                         .doc(document.getElementById("idBox").value)
                         .collection(date)
@@ -193,15 +196,15 @@ function standing() {
     var currTime = time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds();
     var currDate = date + " " + currTime;
 
+    console.log(currTime);
+
 
     db.collection("users").doc(document.getElementById("idBox").value).get().then(function(data) {
         if (data.exists) {
             // See if the sitting and standing documents for curr date exist
             db.collection("users").doc(document.getElementById("idBox").value).collection(date).doc("sitting").get().then(function(data) {
-                console.log("!0");
 
                 if (data.exists) {
-                    console.log("!1");
                     db.collection("users")
                         .doc(document.getElementById("idBox").value)
                         .collection(date)

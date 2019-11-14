@@ -181,3 +181,17 @@ p {
 .topnav-right {
   float: right;
 }
+table {
+  border: 1px solid black;
+}
+th {
+  text-align: center;
+  border: 1px solid black;
+}
+td {
+  text-align: center;
+  border: 1px solid black;
+}
+.tbl-container {
+  text-align: center;
+}

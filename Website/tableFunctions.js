@@ -1,5 +1,5 @@
-function exportFunction(fn = 'output') {
-    var table = TableExport(document.getElementById('dataTable'), {
+function exportFunction(tableId, fn = 'output') {
+    var table = TableExport(document.getElementById(tableId), {
 	headers: true,
 	footers: true,
 	formats: ["csv"],
@@ -177,7 +177,7 @@ function createUserDataTable(collec, tableId) {
     }
 
     html += "</table>";
-    html += "<img src='Export.png' onclick=\"exportFunction('dataTable', 'data_output')\" style='cursor:pointer'></img>";
+    html += "<img src='Export.png' onclick=\"exportFunction('dataTable', 'user_" + readUserCookie() + "_data')\" style='cursor:pointer'></img>";
 
     document.getElementById(tableId).innerHTML = html;
 }

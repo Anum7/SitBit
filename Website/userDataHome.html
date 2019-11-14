@@ -17,39 +17,36 @@
     .tbl-container {
 	text-align: center;
     }
-    </style>
+  </style>
 </head>
 
-<body>
-    <div id="container">
-        <div id="header">
-            <h1>Sit<span class="off">Bit</span></h1>
-            <h2>Putting an End to Sedentary Lifestyles</h2>
-        </div>   
-        <br> <br>
-        <div class="topnav">
-            <a href="mainPage.html">Home</a>
-            <div class="topnav-right">
-                <a onclick="return logout()">Logout</a>
-            </div>
-        </div>
-        <div id="content">
-            <br>
-            <div id="content_top"></div>
-            <div id="content_main">
-                <table style="width:100%">
-                    <form id="add-users-form"></form>
-                    <ul id="users-list"></ul> 
-                </table>
-		<div id="tbl" class="tbl-container"></div>
-            </div>
-            <div id="content_bottom"></div>
-        </div>
+<body onload="getUserButtons('buttons')">
+  <div id="container">
+    <div id="header">
+      <h1>Sit<span class="off">Bit</span></h1>
+      <h2>Putting an End to Sedentary Lifestyles</h2>
+    </div>   
+    <br> <br>
+    <div class="topnav">
+      <a href="mainPage.html">Home</a>
+      <div class="topnav-right">
+        <a onclick="return logout()">Logout</a>
+      </div>
+    </div>
+    <div id="content">
+      <br>
+      <div id="content_top"></div>
+      <div id="content_main">
+        <table style="width:100%">
+          <form id="add-users-form"></form>
+          <ul id="users-list"></ul> 
+        </table>
+	<div id="buttons"></div>
+      </div>
+      <div id="content_bottom"></div>
+    </div>
 
-
-        <button id="viewData" type="button" onclick = "viewData()"> View Data </button>
-	
-        <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-app.js"></script>
 
     <!-- Add Firebase products that you want to use -->
     <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-auth.js"></script>
@@ -57,119 +54,55 @@
 
     <script src="FileSaver.js"></script>
     <script src="tableexport.js"></script>
-    <script src="tableFunctions.js"></script>
-  
+    <script src="userFunctions.js"></script>
+    
     <script>
-        var firebaseConfig = {
-            apiKey: "AIzaSyAWv9r-zZGtB1v1ZvP1mXlt-S-Hx_0DjPE",
-            authDomain: "striking-figure-236016.firebaseapp.com",
-            databaseURL: "https://striking-figure-236016.firebaseio.com",
-            projectId: "striking-figure-236016",
-            storageBucket: "striking-figure-236016.appspot.com",
-            messagingSenderId: "853063308846",
-            appID: "1:853063308846:web:246d6ed0eff2faec98b1bf",
-        };
-        firebase.initializeApp(firebaseConfig);
-        var db = firebase.firestore();
+      var firebaseConfig = {
+          apiKey: "AIzaSyAWv9r-zZGtB1v1ZvP1mXlt-S-Hx_0DjPE",
+          authDomain: "striking-figure-236016.firebaseapp.com",
+          databaseURL: "https://striking-figure-236016.firebaseio.com",
+          projectId: "striking-figure-236016",
+          storageBucket: "striking-figure-236016.appspot.com",
+          messagingSenderId: "853063308846",
+          appID: "1:853063308846:web:246d6ed0eff2faec98b1bf",
+      };
+      firebase.initializeApp(firebaseConfig);
+      var db = firebase.firestore();
 
 
     </script>
 
     <script>
-        function sendToHomePage() {
-            firebase.auth().onAuthStateChanged(function(user) {
-                if (user) {
-                    // User is signed in.
-                    var displayName = user.displayName;
-                    var email = user.email;
-                    var emailVerified = user.emailVerified;
-                    var photoURL = user.photoURL;
-                    var isAnonymous = user.isAnonymous;
-                    var uid = user.uid;
-                    var providerData = user.providerData;
-          
-                } else {
-                    // No user is signed in.
-                    location.href='login.html';
-                }
-            });
-        }
-        function logout() {
-            firebase.auth().signOut().then(function() {
-                // Sign-out successful.
-                alert("You're about to Logout");  
-            }).catch(function(error) {
-                // An error happened.
-                console.log(error);
-                alert(error);  
-            });
-            sendToHomePage();
-        }
-
-      function viewData() {
-	  var html = "";
-	  html += "<table id='dataTable' style='margin-bottom:1cm'>";
-	  html += "<tr>";
-	  html += "<th>User</th>";
-	  html += "<th>Date</th>";
-	  html += "<th>Sitting Time</th>";
-	  html += "<th>Break Number</th>";
-	  html += "<th>Break Length</th>";
-	  html += "<th>Break Frequency</th>";
-	  html += "</tr>";
-
-	  promises = [];
-
-          db.collection("usersReport").get().then(function(querySnapshot) {
-              querySnapshot.forEach(function(doc) {
-		  promises.push(db.collection("usersReport").doc(doc.id).get());
-
-                  console.log(doc.id);
-                  data = doc.data();
-		  console.log(data);
-
-		  arr = data.dataArr;
+      function sendToHomePage() {
+          firebase.auth().onAuthStateChanged(function(user) {
+              if (user) {
+                  // User is signed in.
+                  var displayName = user.displayName;
+                  var email = user.email;
+                  var emailVerified = user.emailVerified;
+                  var photoURL = user.photoURL;
+                  var isAnonymous = user.isAnonymous;
+                  var uid = user.uid;
+                  var providerData = user.providerData;
 		  
-		  if(typeof arr !== 'undefined') {
-		      html += "<tr>";
-		      html += "<td>" + doc.id + "</td>";
-		      html += "<td>" + arr[0] + "</td>";
-		      html += "<td>" + arr[1].toString().substring(0,6) + "</td>";
-		      html += "<td>" + arr[2].toString().substring(0,6) + "</td>";
-		      html += "<td>" + arr[3].toString().substring(0,6) + "</td>";
-		      html += "<td>" + arr[4].toString().substring(0,6) + "</td>";
-		      html += "</tr>";
-		  }
-
-                  /*
-                   if (data.propertyIsEnumerable()) {
-                   for (currData in data) {
-                   console.log(currData[0]);
-                   console.log("Sitting Time: " + currData[1]);
-                   console.log("Break Number: " + currData[2]);
-                   console.log("Break Length: " + currData[3]);
-                   console.log("Break Frequency: " + currData[4]);
-                   }
-                   } else {
-                   console.log(data);
-                   console.log(data[0]);
-                   console.log(data[1]);
-                   console.log(data[2]);
-                   console.log(data[3]);
-                   console.log(data[3]);
-                   }*/
-                  
-              });
-
-	      Promise.all(promises).then(promises => {
-		  html += "</table>"
-		  html += "<img src='Export.png' onclick=\"exportFunction('dataTable', 'data_output')\" style='cursor:pointer'></img>";
-		  document.getElementById("tbl").innerHTML = html;
-	      })
-          })
-
+              } else {
+                  // No user is signed in.
+                  location.href='login.html';
+              }
+          });
       }
-	  
+      function logout() {
+          firebase.auth().signOut().then(function() {
+              // Sign-out successful.
+              alert("You're about to Logout");  
+          }).catch(function(error) {
+              // An error happened.
+              console.log(error);
+              alert(error);  
+          });
+          sendToHomePage();
+      }
+      
     </script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
@@ -178,3 +111,4 @@
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </body>
 </html>
+

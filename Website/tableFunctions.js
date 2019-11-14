@@ -19,7 +19,7 @@ function exportFunction(fn = 'output') {
     table.export2file(csvData.data, csvData.mimeType, csvData.filename, csvData.fileExtension, csvData.merges, csvData.RTL, csvData.sheetname);
 }
 
-function pullData(tableId) {
+function pullAvgData(tableId) {
     var dataList = [];
     var promises = [];
     db.collection("usersReport").get().then(function(querySnapshot) {
@@ -40,9 +40,9 @@ function pullData(tableId) {
 }
 
 function addDays(date, days) {
-  var result = new Date(date);
-  result.setDate(result.getDate() + days);
-  return result;
+    var result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
 }
 
 function createAvgDataTable(collec, tableId) {
@@ -88,16 +88,86 @@ function createAvgDataTable(collec, tableId) {
 	    avgBreakFrequency /= currDateList.length;
 
 	    html += "<tr>";
-	    html += "<th>"+currDateStr+"</th>";
-	    html += "<th>"+avgSittingTime.toString().substring(0,6)+"</th>";
-	    html += "<th>"+avgBreakNum.toString().substring(0,6)+"</th>";
-	    html += "<th>"+avgBreakLength.toString().substring(0,6)+"</th>";
-	    html += "<th>"+avgBreakFrequency.toString().substring(0,6)+"</th>";
+	    html += "<td>"+currDateStr+"</td>";
+	    html += "<td>"+avgSittingTime.toString().substring(0,7)+"</td>";
+	    html += "<td>"+avgBreakNum.toString().substring(0,7)+"</td>";
+	    html += "<td>"+avgBreakLength.toString().substring(0,7)+"</td>";
+	    html += "<td>"+avgBreakFrequency.toString().substring(0,7)+"</td>";
 	    html += "</tr>";
 	}
 
 
 
+	var todayDateStr = todayDate.getFullYear() + "-" + (todayDate.getMonth() + 1) + "-" + todayDate.getDate();
+	
+	if(currDateStr === todayDateStr) {
+	    break;
+	}
+	currDate = addDays(currDate, 1);
+    }
+
+    html += "</table>";
+    html += "<img src='Export.png' onclick=\"exportFunction('dataTable', 'data_output')\" style='cursor:pointer'></img>";
+
+    document.getElementById(tableId).innerHTML = html;
+}
+
+function readUserCookie() {
+    var decodedCookie = decodeURIComponent(document.cookie);
+    return decodedCookie.substring(5);
+}
+
+function pullUserData(tableId) {
+    var dataList;
+    var promises = [];
+    db.collection("usersReport").get().then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+	    promises.push(db.collection("usersReport").doc(doc.id).get());
+
+	    if(doc.id === readUserCookie()) {
+		dataList = doc.data();
+	    }
+	    
+	    if(typeof data !== 'undefined') {
+		
+	    }
+	});
+
+	Promise.all(promises).then(promises=> {
+	    createUserDataTable(dataList, tableId);
+	})
+    })
+}
+
+function createUserDataTable(collec, tableId) {
+    console.log(tableId);
+    var currDate = new Date("11/10/2019");
+    var todayDate = new Date();
+
+    var html = "";
+    html += "<table id='dataTable' style='margin-bottom:1cm'>";
+    html += "<tr>";
+    html += "<th width='28%'>Date</th>";
+    html += "<th width='18%'>Average Sitting Time</th>";
+    html += "<th width='18%'>Average Break Number</th>";
+    html += "<th width='18%'>Average Break Length</th>";
+    html += "<th width='18%'>Average Break Frequency</th>";
+    html += "</tr>";
+    
+    while(true) {
+	var currDateStr = currDate.getFullYear() + "-" + (currDate.getMonth() + 1) + "-" + currDate.getDate();
+
+	if(typeof collec[currDateStr] !== 'undefined') {
+	    var entry = collec[currDateStr];
+	    html += "<tr>";
+	    html += "<td>"+currDateStr+"</td>";
+	    html += "<td>"+entry[0].toString().substring(0,7)+"</td>";
+	    html += "<td>"+entry[1].toString().substring(0,7)+"</td>";
+	    html += "<td>"+entry[2].toString().substring(0,7)+"</td>";
+	    html += "<td>"+entry[3].toString().substring(0,7)+"</td>";
+	    html += "</tr>";
+	}
+	
 	var todayDateStr = todayDate.getFullYear() + "-" + (todayDate.getMonth() + 1) + "-" + todayDate.getDate();
 	
 	if(currDateStr === todayDateStr) {

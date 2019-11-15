@@ -4,7 +4,7 @@
   <title>Sit Bit | Create an Account </title>
 </head>
 
-<body onload="getUserButtons('buttons')">
+<body onload="getUserButtons('users_list')">
   <div id="container">
     <div id="header">
       <h1>Sit<span class="off">Bit</span></h1>
@@ -22,18 +22,8 @@
       <div class="topnav">
           <input type="text" placeholder="Search for User..." style="width:300px; height:25px">
       </div>
-      <div class="vertical-menu">
+      <div id="users_list" class="vertical-menu">
         <a href="#" class="active">Home</a>
-        <a href="#">Link 1</a>
-        <a href="#">Link 2</a>
-        <a href="#">Link 3</a>
-        <a href="#">Link 4</a>
-        <a href="#">Link 5</a>
-        <a href="#">Link 6</a>
-        <a href="#">Link 7</a>
-        <a href="#">Link 8</a>
-        <a href="#">Link 9</a>
-        <a href="#">Link 10</a>
       </div>
       <div id="content_top"></div>
       <div id="content_main">
@@ -41,7 +31,6 @@
           <form id="add-users-form"></form>
           <ul id="users-list"></ul> 
         </table>
-	<div id="buttons"></div>
 	<div id="tbl" class="tbl-container"></div>
       </div>
       <div id="content_bottom"></div>

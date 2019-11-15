@@ -138,8 +138,24 @@ clear:both;
   color: #fff;
   font-size: 18px;
   border-radius: 20px;
+  text-align: center;
+}
+.main-buttons {
+  border: none;
+  outline: none;
+  height: 40px;
+  background: #1c8adb;
+  color: #fff;
+  font-size: 45px;
+  border-radius: 20px;
+  text-align: center;
 }
 
+.main-buttons:hover {
+  cursor: pointer;
+  background: #39dc79;
+  color: #000;
+}
 .blue-buttons:hover {
   cursor: pointer;
   background: #39dc79;

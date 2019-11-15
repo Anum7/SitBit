@@ -195,3 +195,25 @@ td {
 .tbl-container {
   text-align: center;
 }
+.vertical-menu {
+  width: 400px;
+  height: 300px;
+  overflow-y: auto;
+}
+
+.vertical-menu a {
+  background-color: #eee;
+  color: black;
+  display: block;
+  padding: 12px;
+  text-decoration: none;
+}
+
+.vertical-menu a:hover {
+  background-color: #ccc;
+}
+
+.vertical-menu a.active {
+  background-color: #4CAF50;
+  color: white;
+}

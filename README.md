@@ -15,7 +15,7 @@ the user will not be able to access the website without logging in
 user input error
 the user will not be able to record any conflicting data
 
-##Install Guide  
+## Install Guide  
 ### Downloads
 The application runs as a website app on a desktop - no prior downloading of software/hardware is required. The GitHub repository must be downloaded as a zip file onto the local desktop, and then unzipped.
 ### SitBit Tracker Users

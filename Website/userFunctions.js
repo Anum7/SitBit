@@ -9,7 +9,7 @@ function getUserButtons(containerId) {
 	    data = doc.data();
 
 	    if(typeof data !== 'undefined') {
-		html += "<li><a href=\"#\" onclick='pullUserData(\"" + doc.id.toString() + "\", \"tbl\")'> User " + doc.id + "</a></li>";
+		html += "<a href=\"#\" onclick='pullUserData(\"" + doc.id.toString() + "\", \"tbl\")'> User " + doc.id + "</a>";
 	    }
 	});
 
@@ -21,10 +21,12 @@ function getUserButtons(containerId) {
 
 function filterUsers() {
     var search_text = document.getElementById("searchBar").value.toUpperCase();
-    var entries = document.getElementById("users_list").getElementsByTagName("li");
+    var entries = document.getElementById("users_list").getElementsByTagName("a");
 
     for(const entry of entries) {
-	var text = entry.getElementsByTagName("a")[0].innerText;
+	var text = entry.innerText;
+	if(text == "Home")
+	    continue;
 	if(text.toUpperCase().includes(search_text)) {
 	    entry.style.display = "";
 	} else {

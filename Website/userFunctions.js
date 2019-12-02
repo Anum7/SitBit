@@ -25,7 +25,6 @@ function filterUsers() {
 
     for(const entry of entries) {
 	var text = entry.getElementsByTagName("a")[0].innerText;
-	console.log(text + " " + search_text);
 	if(text.toUpperCase().includes(search_text)) {
 	    entry.style.display = "";
 	} else {

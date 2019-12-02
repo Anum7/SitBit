@@ -201,6 +201,7 @@ clear:both;
   display: block;
   padding: 12px;
   text-decoration: none;
+  text-align: left;
 }
 
 .vertical-menu a:hover {
@@ -210,4 +211,18 @@ clear:both;
 .vertical-menu a.active {
   background-color: #4CAF50;
   color: white;
+}
+
+.column {
+  float: left;
+  width: 50%;
+  padding: 10px;
+  /*height: 300px;*/
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
 }

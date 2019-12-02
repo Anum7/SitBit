@@ -15,7 +15,7 @@
     <div class="topnav">
       <a class ="active" href="mainPage.html">Home</a>
       <div class="topnav-right">
-        <a onclick="return logout();">Logout</a>
+        <a onclick="location.href='login.html'";>Logout</a>
       </div>
     </div>
     <br> <br>
@@ -75,7 +75,7 @@
     }
 
  function logout() {
-    firebase.auth().signOut().then(function() {
+    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION).then(function() {
       // Sign-out successful.
       alert("You're about to Logout");  
     }).catch(function(error) {

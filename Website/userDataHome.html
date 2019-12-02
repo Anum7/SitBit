@@ -18,16 +18,16 @@
       </div>
     </div>
     <div id="content">
-      <br>
-      <div class="topnav">
-          <input type="text" id = "searchBar" onkeyup="filterUsers()" placeholder="Search for User..." style="width:300px; height:25px">
-      </div>
-      <div id="users_list" class="vertical-menu">
-        <a href="#" class="active">Home</a>
-      </div>
       <div id="content_top"></div>
-      <div id="content_main">
-	<div id="tbl" class="tbl-container"></div>
+      <div id="content_main" class="row">
+        <div id="tbl" class="column">
+            <input type="text" id = "searchBar" onkeyup="filterUsers()" placeholder="Search for User..." style="width:300px; height:25px">
+        </div>
+	      <div class="column">
+          <div id="users_list" class="vertical-menu">
+            <a href="#" class="active"></a>
+          </div>
+        </div>
       </div>
       <div id="content_bottom"></div>
     </div>

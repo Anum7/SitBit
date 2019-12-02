@@ -15,7 +15,7 @@
     <div class="topnav">
       <a class ="active" href="mainPage.html">Home</a>
       <div class="topnav-right">
-        <a onclick="location.href='login.html'";>Logout</a>
+        <a onclick="return logout()";>Logout</a>
       </div>
     </div>
     <br> <br>
@@ -56,34 +56,34 @@
   </script>
 <script>
   function sendToHomePage() {
-      firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-          // User is signed in.
-          var displayName = user.displayName;
-          var email = user.email;
-          var emailVerified = user.emailVerified;
-          var photoURL = user.photoURL;
-          var isAnonymous = user.isAnonymous;
-          var uid = user.uid;
-          var providerData = user.providerData;
-          
-        } else {
-          // No user is signed in.
-          location.href='login.html';
-        }
-      });
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                // User is signed in.
+                var displayName = user.displayName;
+                var email = user.email;
+                var emailVerified = user.emailVerified;
+                var photoURL = user.photoURL;
+                var isAnonymous = user.isAnonymous;
+                var uid = user.uid;
+                var providerData = user.providerData;
+    
+            } else {
+                // No user is signed in.
+                location.href='login.html';
+            }
+        });
     }
-
- function logout() {
-    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION).then(function() {
-      // Sign-out successful.
-      alert("You're about to Logout");  
-    }).catch(function(error) {
-      // An error happened.
-        console.log(error);
-        alert(error);  
-    });
-      sendToHomePage();
+    
+    function logout() {
+        firebase.auth().signOut().then(function() {
+            // Sign-out successful.
+            alert("You're about to Logout");  
+        }).catch(function(error) {
+            // An error happened.
+            console.log(error);
+            alert(error);  
+        });
+        sendToHomePage();
     }
 </script>
 

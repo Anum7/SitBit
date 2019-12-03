@@ -1,126 +1,104 @@
 <!DOCTYPE html>
 <link rel="stylesheet" type="text/css" href="style.css" />
 <head>
-<title>Sit Bit | Average Data </title>
+  <title>Sit Bit | Average Data </title>
 </head>
 
-<body>
-    <div id="container">
-  <style>
+<body onload="pullAvgData('tbl')">
+  <div id="container">
+    <style>
       th,td {
-       border: 1px solid #006;
+	  border: 1px solid #006;
+	  text-align:center;
+	  text-overflow:hidden;
       }
       table {
-       border-collapse: collapse;
+	  border-collapse: collapse;
+	  text-align:center;
       }
-      td {
-       height: 90px;
-      }
-        </style>
-        <div id="header">
-                <h1>Sit<span class="off">Bit</span></h1>
-                <h2>Putting an End to Sedentary Lifestyles</h2>
-            </div>   
-            <br> <br>
-            <div class="topnav">
-                <a href="mainPage.html">Home</a>
-                <div class="topnav-right">
-                    <a onclick="return logout()">Logout</a>
-                </div>
-            </div>
-
-            <div id="content">
-                <br>         
-                <div id="content_top"></div>
-                <div id="content_main">
-                    <table style="width:100%">
-                        <tr>
-                            <th> </th>
-                            <th>Day 1 </th>
-                            <th>Day 2 </th>
-                    <th>Day 3 </th>
-                        </tr>
-
-                        <tr>
-                            <td>Sedentary Activity</td>
-                            <td> </td>
-                            <td> </td>
-                    <td> </td>
-                        </tr>
-                  <tr>
-                            <td>Break Frequency</td>
-                            <td> </td>
-                            <td> </td>
-                    <td> </td>
-                  </tr>
-                        <tr>
-                      <td>Break Duration</td>
-                            <td> </td>
-                            <td> </td>
-                    <td> </td>
-                        </tr>
-        
-                    </table>
-                </div>
-                <div id="content_bottom"></div>
-            </div>
-
+    </style>
+    <div id="header">
+      <h1>Sit<span class="off">Bit</span></h1>
+      <h2>Putting an End to Sedentary Lifestyles</h2>
+    </div>   
+    <br> <br>
+    <div class="topnav">
+      <a href="mainPage.html">Home</a>
+      <div class="topnav-right">
+        <a onclick="return logout()">Logout</a>
+      </div>
     </div>
 
-    <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-app.js"></script>
+    <div id="content">
+      <br>         
+      <div id="content_top"></div>
+      <div id="content_main">
+	<div id="tbl" style="text-align:center"></div>
+      </div>
+      <div id="content_bottom"></div>
+    </div>
 
-    <!-- Add Firebase products that you want to use -->
-    <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-firestore.js"></script>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-app.js"></script>
+
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-firestore.js"></script>
+
+  <script src="FileSaver.js"></script>
+  <script src="tableexport.js"></script>
+  <script src="tableFunctions.js"></script>	    
   
-    <script>
-        var firebaseConfig = {
-            apiKey: "AIzaSyAWv9r-zZGtB1v1ZvP1mXlt-S-Hx_0DjPE",
-            authDomain: "striking-figure-236016.firebaseapp.com",
-            databaseURL: "https://striking-figure-236016.firebaseio.com",
-            projectId: "striking-figure-236016",
-            storageBucket: "striking-figure-236016.appspot.com",
-            messagingSenderId: "853063308846",
-            appID: "1:853063308846:web:246d6ed0eff2faec98b1bf",
-        };
-        firebase.initializeApp(firebaseConfig);
-    </script>
+  <script>
+    var firebaseConfig = {
+        apiKey: "AIzaSyAWv9r-zZGtB1v1ZvP1mXlt-S-Hx_0DjPE",
+        authDomain: "striking-figure-236016.firebaseapp.com",
+        databaseURL: "https://striking-figure-236016.firebaseio.com",
+        projectId: "striking-figure-236016",
+        storageBucket: "striking-figure-236016.appspot.com",
+        messagingSenderId: "853063308846",
+        appID: "1:853063308846:web:246d6ed0eff2faec98b1bf",
+    };
+    firebase.initializeApp(firebaseConfig);
+    var db = firebase.firestore();
+  </script>
 
-    <script>
-        function sendToHomePage() {
-            firebase.auth().onAuthStateChanged(function(user) {
-                if (user) {
-                    // User is signed in.
-                    var displayName = user.displayName;
-                    var email = user.email;
-                    var emailVerified = user.emailVerified;
-                    var photoURL = user.photoURL;
-                    var isAnonymous = user.isAnonymous;
-                    var uid = user.uid;
-                    var providerData = user.providerData;
-          
-                } else {
-                    // No user is signed in.
-                    location.href='login.html';
-                }
-            });
-        }
-        function logout() {
-            firebase.auth().signOut().then(function() {
-                // Sign-out successful.
-                alert("You're about to Logout");  
-            }).catch(function(error) {
-                // An error happened.
-                console.log(error);
-                alert(error);  
-            });
-            sendToHomePage();
-        }
-    </script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.js"></script>
-    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script>
+    function sendToHomePage() {
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                // User is signed in.
+                var displayName = user.displayName;
+                var email = user.email;
+                var emailVerified = user.emailVerified;
+                var photoURL = user.photoURL;
+                var isAnonymous = user.isAnonymous;
+                var uid = user.uid;
+                var providerData = user.providerData;
+		
+            } else {
+                // No user is signed in.
+                location.href='login.html';
+            }
+        });
+    }
+    function logout() {
+        firebase.auth().signOut().then(function() {
+            // Sign-out successful.
+            alert("You're about to Logout");  
+        }).catch(function(error) {
+            // An error happened.
+            console.log(error);
+            alert(error);  
+        });
+        sendToHomePage();
+    }
+  </script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.js"></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </body>
 </html>

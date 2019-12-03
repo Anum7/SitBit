@@ -1,143 +1,54 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <style>
-        .grid-container {
-          display: grid;
-          grid-template-columns: auto auto;
-          grid-gap: 10px;
-          padding: 10px;
-        }
-        
-        .grid-container > div {
-          background-color: rgba(255, 255, 255, 0.8);
-          /* border: 1px solid black; */
-          text-align: center;
-          font-size: 30px;
-        }
-    </style>
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<!-- <link rel="stylesheet" href="Index.css"> -->
-
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-firestore.js"></script>
-<script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-database.js"></script>
-
- 
-<script>
-
-  //initializing firebase
-  var firebaseConfig = {
-    apiKey: "AIzaSyAWv9r-zZGtB1v1ZvP1mXlt-S-Hx_0DjPE",
-    authDomain: "striking-figure-236016.firebaseapp.com",
-    databaseURL: "https://striking-figure-236016.firebaseio.com",
-    projectId: "striking-figure-236016",
-    storageBucket: "striking-figure-236016.appspot.com",
-    messagingSenderId: "853063308846",
-    appID: "1:853063308846:web:246d6ed0eff2faec98b1bf",
-  };
-  
-  firebase.initializeApp(firebaseConfig);
-  var ref = firebase.database().ref();
-
-</script>
-
-    
-</head>
-
-  <body>
-
-   <form>
-    <div class="form-group">
-    <div style="text-align: center; border: 1px solid">
-    <label for="idBox"> Employee ID </label>
-    <input type="textarea" class="form-control" id="idBox">
-    </div>
-
-   <button type="button" class="btn btn-primary" onclick = "loadDatabase()"> Submit </button>
-  </form>
-
-  <br><br>
-  <div class="grid-container" >
-      <div>
-          <button id="sitting" value="button text" onclick = "sitting()" type="button" class="btn btn-primary" button style = "height: 400px; width: 600px; background: url(images/sittingPerson.png)">  Sitting </button>
+   <style type= style.css></style>
+   <head>
+      <title> SitBit Tracker </title>
+      <link rel="stylesheet" type="text/css" href="style.css">
+      <script type="text/javascript" src="calculations.js"></script>
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-app.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-auth.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-firestore.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-database.js"></script>
+      <script>
+         //initializing firebase
+         var firebaseConfig = {
+           authDomain: "striking-figure-236016.firebaseapp.com",
+           databaseURL: "https://striking-figure-236016.firebaseio.com",
+           projectId: "striking-figure-236016",
+           storageBucket: "striking-figure-236016.appspot.com",
+           messagingSenderId: "853063308846",
+           appID: "1:853063308846:web:246d6ed0eff2faec98b1bf",
+         };
+         
+         firebase.initializeApp(firebaseConfig);
+         var db = firebase.firestore();
+      </script>
+   </head>
+   <body>
+      <div class="header">
+      <h1>Sit<span class="off">Bit</span></h1>
+      <div class="login-box">
+         <img src="avatar.png" class="avatar">
+         <form>
+            <label for="idBox"> Employee ID: </label>
+            <input type="text" placeholder="Enter Employee ID" id="idBox">
+            <br><br>
+            <button type="button" class="submit-button" onclick = "startSession()">Submit</button>
+         </form>
       </div>
-      <div >
-          <button id="standing" value="button text" onclick = "standing()" type="button" class="btn btn-primary" button style = "height: 400px; width: 600px; background: url(images/standingPerson.png)"> Standing </button>
+      <br><br>
+      <div class="record-box">
+         <button id="sitting" value="button text" onclick = "sitting()" type="button1" class="record-buttons" disabled="true"> Sitting </button>
+         <br><br>
+         <button id="standing" value="button text" onclick = "standing()" type="button2" class="record-buttons" disabled="true"> Standing </button>
+         <br><br>
+         <button id="endSession" type="button" class="end-session-button" onclick = "loadDatabase()" disabled="true"> End Session </button>
       </div>
-          
-
-      
-  </div>
-  
-    
-
-  <script>
-
-      // current user ID
-    var idBox;
-
-      // create reference to firebase, pull current data and display
-      function loadDatabase() {
-
-        idBox = document.getElementById("idBox").value;
-
-        ref.on("value", function(snapshot) {
-          
-          snapshot.forEach(function(childSnapshot) {
-            var key = childSnapshot.key;
-            var childData = childSnapshot.val();
-            var id=childData.id;
-            console.log(childData );
-          });        
-        }, function (error) {
-            console.log("Error: " + error.code);
-        });
-
-      }
-
-
-    // add current user info to firebase (sitting)
-    function sitting() { 
-
-      //get current time
-      var time = new Date()
-      var date = time.getFullYear()+'-'+(time.getMonth()+1)+'-'+time.getDate();
-      var currTime = time.getDate() + time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds();
-
-      //access child and push new time
-      var usersRef = ref.child(idBox);
-      var currRef = usersRef.child("sitting");
-      currRef.push(date + currTime);
-
-    };
-
-    // add current user info to firebase (standing)
-    function standing() { 
-
-      //get current time
-      var time = new Date()
-      var date = time.getFullYear()+'-'+(time.getMonth()+1)+'-'+time.getDate();
-      var currTime = time.getDate() + time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds();
-
-      //access child and push new time
-      var usersRef = ref.child(idBox);
-      var currRef = usersRef.child("standing");
-      currRef.push(date + currTime);
-
-    };
-
-  </script>
-
-  </body>
+   </body>
 </html>

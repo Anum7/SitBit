@@ -6,16 +6,15 @@
 
 <body onload="sendToHomePage();">
   <div id="container">
-        <div id="header">
+    <div id="header">
       <h1>Sit<span class="off">Bit</span></h1>
       <h2>Putting an End to Sedentary Lifestyles</h2>
     </div>   
-    <br> <br> <br>
+    <br><br><br>
     <div id="content">
-        
-      <div id="content_top"></div>
+      <div id="content_top">
+      </div>
       <div id="content_main">
-
         <!-- Credentials fields -->
         <div class="input-group">
           <input type="email" class="form-control" placeholder="Email..." id = "email_field"/>
@@ -27,12 +26,16 @@
         <br>
 
         <!-- Login Button -->
-        <button type = "button" value="Login" onclick="login()">Log In</button>
+        <button type="button" class="blue-buttons" value="Login" onclick="login()">Log In</button>
             
         <!-- create Account Button -->
-        <cenetr> <button type = "button" value = "Create Account" onclick="signUp()">Create Account</button></cenetr>
+        <cenetr>
+          <button type="button" class="blue-buttons" value="Create Account" onclick="signUp()">Create Account
+          </button>
+        </cenetr>
       </div>
-      <div id="content_bottom"></div>
+      <div id="content_bottom">
+      </div>
     </div>
   </div>
   <!-- Firebase -->
@@ -50,7 +53,7 @@
     appID: "1:853063308846:web:246d6ed0eff2faec98b1bf",
   };
   firebase.initializeApp(firebaseConfig);
-</script>
+  </script>
 
   <script>
     function login() {
@@ -89,7 +92,6 @@
     function signUp() {
       window.open('createAccount.html', '_self');
     }
-
   </script>
 </body>
 </html>

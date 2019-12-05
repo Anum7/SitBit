@@ -15,7 +15,8 @@ the user will not be able to access the website without logging in
 user input error
 the user will not be able to record any conflicting data
 
-##Install Guide  
+## Install Guide
+
 ### Downloads
 The application runs as a website app on a desktop - no prior downloading of software/hardware is required. Once on the GitHub page, navigate to the green button called "clone or download". After clicking on that button, choose the option to Download Zip. Once downloaded onto the local desktop, the file must be unzipped. There are two folders once this file has been opened - Web App and Website. The Web App is for the users to enter data, while the Website is for researchers to access data.
 ### SitBit Tracker Users
